@@ -40,7 +40,7 @@ export default function Hero() {
               style={{ border: '1px solid rgba(0,212,255,0.3)', background: 'rgba(0,212,255,0.07)' }}>
               <span className="online-dot" />
               <span className="text-xs font-mono tracking-widest" style={{ color: 'var(--cyan)' }}>
-                SYSTEMS OPERATIONAL · DALLAS TX
+                SOFTWARE DEVELOPMENT ENGINEER · DALLAS TX
               </span>
             </div>
 
