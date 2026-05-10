@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp *)",
+      "PowerShell(claude mcp add --transport http \"Zapier-MCP\" https://mcp.zapier.com/api/v1/connect --scope global)",
+      "mcp__Zapier-MCP__list_zapier_skills",
+      "mcp__Zapier-MCP__get_zapier_skill",
+      "mcp__Zapier-MCP__list_enabled_zapier_actions"
+    ]
+  }
+}
