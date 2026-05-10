@@ -7,26 +7,13 @@ export default function Contact() {
   const [form, setForm] = useState({ name: '', company: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setStatus('sending');
-    try {
-      const res = await fetch(`https://formspree.io/f/placeholder`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          company: form.company,
-          message: form.message,
-          _replyto: personal.email,
-        }),
-      });
-      setStatus(res.ok ? 'sent' : 'error');
-    } catch {
-      // Fallback: open mailto
-      window.location.href = `mailto:${personal.email}?subject=Flight Plan from ${form.name}&body=${encodeURIComponent(form.message)}`;
-      setStatus('sent');
-    }
+    const subject = `Flight Plan from ${form.name}${form.company ? ` · ${form.company}` : ''}`;
+    const body = `Name: ${form.name}\nCompany / Role: ${form.company}\n\n${form.message}`;
+    window.location.href = `mailto:${personal.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setStatus('sent');
   };
 
   return (

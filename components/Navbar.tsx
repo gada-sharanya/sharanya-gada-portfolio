@@ -31,8 +31,8 @@ export default function Navbar() {
       }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <a href="#hero" className="flex items-center gap-2 group">
+        {/* Logo — non-clickable brand mark */}
+        <div className="flex items-center gap-2">
           <div
             className="w-7 h-7 rounded flex items-center justify-center text-xs font-black"
             style={{ background: 'var(--cyan)', color: '#000' }}
@@ -42,7 +42,7 @@ export default function Navbar() {
           <span className="hidden sm:block font-mono text-sm tracking-wider" style={{ color: 'var(--foreground)' }}>
             sharanya<span style={{ color: 'var(--cyan)' }}>.gada</span>
           </span>
-        </a>
+        </div>
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
