@@ -1,24 +1,14 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { personal } from '@/data/portfolio';
-
-interface Repo {
-  id: number;
-  name: string;
-  description: string | null;
-  language: string | null;
-  stargazers_count: number;
-  forks_count: number;
-  html_url: string;
-  updated_at: string;
-}
+import { personal, pinnedRepos } from '@/data/portfolio';
 
 const LANG_COLORS: Record<string, string> = {
   Java: '#b07219',
   TypeScript: '#3178c6',
   JavaScript: '#f1e05a',
   Python: '#3572A5',
+  AWS: '#f59e0b',
   Kotlin: '#A97BFF',
   Shell: '#89e051',
 };
@@ -32,18 +22,7 @@ const KAFKA_EVENTS = [
 ];
 
 export default function GitHubSection() {
-  const [repos, setRepos] = useState<Repo[]>([]);
   const [eventIdx, setEventIdx] = useState(0);
-  const username = 'gada-sharanya';
-
-  useEffect(() => {
-    fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`)
-      .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data)) setRepos(data.slice(0, 6));
-      })
-      .catch(() => {});
-  }, []);
 
   useEffect(() => {
     const t = setInterval(() => setEventIdx((i) => (i + 1) % KAFKA_EVENTS.length), 2500);
@@ -66,9 +45,9 @@ export default function GitHubSection() {
           <h2 className="section-title">Live Signal</h2>
         </motion.div>
 
-        {/* Event stream ticker */}
+        {/* Pipeline ticker */}
         <motion.div
-          className="mb-10 rounded-xl p-4 overflow-hidden relative"
+          className="mb-10 rounded-xl p-4 overflow-hidden"
           style={{ border: '1px solid rgba(57,255,20,0.3)', background: 'rgba(57,255,20,0.04)' }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -97,65 +76,64 @@ export default function GitHubSection() {
               className="text-xs font-mono flex-shrink-0"
               style={{ color: 'var(--cyan)' }}
             >
-              github.com/{username} ↗
+              github.com/gada-sharanya ↗
             </a>
           </div>
         </motion.div>
 
-        {/* Repo cards */}
-        {repos.length > 0 ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {repos.map((repo, i) => (
-              <motion.a
-                key={repo.id}
-                href={repo.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="block rounded-xl p-5 card-hover"
-                style={{ border: '1px solid var(--border)', background: 'var(--panel)' }}
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="text-sm font-mono font-bold truncate flex-1 mr-2" style={{ color: 'var(--cyan)' }}>
-                    {repo.name}
-                  </div>
-                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" style={{ color: 'var(--muted)' }}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                  </svg>
+        {/* Curated pinned repo cards */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {pinnedRepos.map((repo, i) => (
+            <motion.a
+              key={repo.name}
+              href={repo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="block rounded-xl p-5 card-hover"
+              style={{ border: '1px solid var(--border)', background: 'var(--panel)' }}
+            >
+              {/* Repo name + external link icon */}
+              <div className="flex items-start justify-between mb-2">
+                <div className="text-sm font-mono font-bold truncate flex-1 mr-2" style={{ color: 'var(--cyan)' }}>
+                  {repo.name}
                 </div>
-                <p className="text-xs leading-relaxed mb-4 line-clamp-2" style={{ color: 'var(--muted)' }}>
-                  {repo.description || 'No description provided.'}
-                </p>
-                <div className="flex items-center gap-4 text-xs" style={{ color: 'var(--muted)' }}>
-                  {repo.language && (
-                    <div className="flex items-center gap-1.5">
-                      <div
-                        className="w-2.5 h-2.5 rounded-full"
-                        style={{ background: LANG_COLORS[repo.language] || '#64748b' }}
-                      />
-                      {repo.language}
-                    </div>
-                  )}
-                  <div className="flex items-center gap-1">⭐ {repo.stargazers_count}</div>
-                  <div className="flex items-center gap-1">⑂ {repo.forks_count}</div>
+                <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" style={{ color: 'var(--muted)' }}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+              </div>
+
+              {/* Tagline — amber, punchy */}
+              <p className="text-xs font-semibold italic mb-3 leading-snug" style={{ color: '#f59e0b' }}>
+                {repo.tagline}
+              </p>
+
+              {/* Divider */}
+              <div className="mb-3" style={{ height: '1px', background: 'var(--border)' }} />
+
+              {/* Technical description — slate */}
+              <p className="text-xs leading-relaxed mb-4" style={{ color: '#94a3b8' }}>
+                {repo.description}
+              </p>
+
+              {/* Footer: language + stars + forks */}
+              <div className="flex items-center gap-4 text-xs" style={{ color: 'var(--muted)' }}>
+                <div className="flex items-center gap-1.5">
+                  <div
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                    style={{ background: LANG_COLORS[repo.language] || '#64748b' }}
+                  />
+                  <span>{repo.language}</span>
                 </div>
-              </motion.a>
-            ))}
-          </div>
-        ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="rounded-xl p-5 animate-pulse"
-                style={{ border: '1px solid var(--border)', background: 'var(--panel)', height: 140 }}
-              />
-            ))}
-          </div>
-        )}
+                <div>⭐ {repo.stars}</div>
+                <div>⑂ {repo.forks}</div>
+              </div>
+            </motion.a>
+          ))}
+        </div>
 
         <div className="mt-8 text-center">
           <a

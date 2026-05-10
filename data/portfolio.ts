@@ -206,3 +206,66 @@ export const flightPath = [
   { city: "Kansas City", label: "Layover", coords: [39.099, -94.578] },
   { city: "Dallas", label: "Destination", coords: [32.776, -96.796] },
 ];
+
+export const pinnedRepos = [
+  {
+    name: "RAG",
+    tagline: "Gave Claude a brain. Spring Boot gave it a backbone.",
+    description:
+      "4-agent AI pipeline in Spring Boot — RAG-augmented requirement analysis, scenario reasoning, and Playwright test skeleton generation via AWS Bedrock + Claude.",
+    language: "Java",
+    url: "https://github.com/gada-sharanya/RAG",
+    stars: 0,
+    forks: 0,
+  },
+  {
+    name: "skyvision-analytics",
+    tagline: "Raw data has no opinion. This does.",
+    description:
+      "Operational analytics dashboard with time-series aggregation, dynamic charting pipelines, and KPI visualization for real-time data interpretation.",
+    language: "JavaScript",
+    url: "https://github.com/gada-sharanya/skyvision-analytics",
+    stars: 1,
+    forks: 0,
+  },
+  {
+    name: "Movie-Client-Backend",
+    tagline: "10,000 movies. Zero slow queries.",
+    description:
+      "Spring Boot REST API with layered service architecture, paginated catalog endpoints, and structured resource modeling for high-read media workloads.",
+    language: "Java",
+    url: "https://github.com/gada-sharanya/Movie-Client-Backend",
+    stars: 0,
+    forks: 1,
+  },
+  {
+    name: "SpotifyRoom",
+    tagline: "Same song. Different cities. Zero lag.",
+    description:
+      "Real-time collaborative listening rooms — WebSocket session sync, Spotify OAuth flow, and shared playback state coordination across concurrent users.",
+    language: "Python",
+    url: "https://github.com/gada-sharanya/SpotifyRoom",
+    stars: 0,
+    forks: 0,
+  },
+  {
+    name: "Movie-client-Full",
+    tagline: "Browse fast. Find faster.",
+    description:
+      "Full-stack media catalog — React frontend with REST integration, component-driven UI architecture, and client-side state management.",
+    language: "JavaScript",
+    url: "https://github.com/gada-sharanya/Movie-client-Full",
+    stars: 0,
+    forks: 0,
+  },
+  {
+    name: "AWS-Serverless-Website",
+    tagline: "No server. No maintenance. No problem.",
+    description:
+      "Zero-maintenance serverless hosting on AWS — S3 origin, CloudFront CDN, Route 53 DNS routing, and IAM policy configuration.",
+    language: "AWS",
+    url: "https://github.com/gada-sharanya/AWS-Serverless-Website",
+    stars: 0,
+    forks: 0,
+  },
+];
